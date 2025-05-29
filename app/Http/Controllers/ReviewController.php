@@ -2,89 +2,89 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Services\CompanyService;
-use App\Http\Requests\CompanyStoreRequest;
-use App\Http\Requests\CompanyUpdateRequest;
+use App\Services\ReviewService;
+use App\Http\Requests\ReviewStoreRequest;
+use App\Http\Requests\ReviewUpdateRequest;
 use App\Http\Resources\ProductResource;
-use App\Http\Resources\CompanyResource;
+use App\Http\Resources\ReviewResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 
 
-class CompanyController extends Controller
+class ReviewController extends Controller
 {
-    private CompanyService $companyService;
+    private ReviewService $reviewService;
 
-    public function __construct(CompanyService $companyService)
+    public function __construct(ReviewService $reviewService)
     {
-        $this->companyService = $companyService;
+        $this->reviewService = $reviewService;
     }
 
     public function get()
     {
-        $companies = $this->companyService->get();
-        return CompanyResource::collection($companies);
+        $reviews = $this->reviewService->get();
+        return ReviewResource::collection($reviews);
 
     }
 
     public function details(int $id)
     {
         try{
-            $company = $this->companyService->details($id);
+            $review = $this->reviewService->details($id);
         }
         catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Company not found', 404]);
+            return response()->json(['error'=>'Review not found', 404]);
         }
-        return new CompanyResource($company);
+        return new ReviewResource($review);
     }
 
-    public function store(CompanyStoreRequest $request)
+    public function store(ReviewStoreRequest $request)
     {
         $data = $request->all();
-        $company = $this->companyService->store($data);
+        $review = $this->ReviewService->store($data);
 
-        return new CompanyResource($company);
+        return new ReviewResource($review);
     }
-    public function update(int $id, CompanyUpdateRequest $request)
+    public function update(int $id, ReviewUpdateRequest $request)
     {
         $data = $request->all();
         try{
-            $company = $this->companyService->update($id,$data);
+            $review = $this->reviewService->update($id,$data);
         }
         catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Company not found', 404]);
+            return response()->json(['error'=>'Review not found', 404]);
         }
 
-        return new CompanyResource($company);
+        return new ReviewResource($review);
 
     }
 
     public function delete(int $id)
     {
         try{
-            $company = $this->companyService->delete($id);
+            $review = $this->reviewService->delete($id);
         }
         catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Company not found', 404]);
+            return response()->json(['error'=>'Review not found', 404]);
         }
-        return new CompanyResource($company);
+        return new ReviewResource($review);
     }
 
     public function getWithProducts()
     {
-        $companies = $this->companyService->getWithProducts();
-        return CompanyResource::collection($companies);
+        $reviews = $this->reviewService->getWithProducts();
+        return ReviewResource::collection($reviews);
 
     }
 
     public function findProducts(int $id)
     {
         try{
-            $products = $this->companyService->findProducts($id);
+            $products = $this->reviewService->findProducts($id);
         }
         catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Company not found', 404]);
+            return response()->json(['error'=>'Review not found', 404]);
         }
         return ProductResource::collection($products);
     }

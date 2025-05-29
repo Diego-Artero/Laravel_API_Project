@@ -3,44 +3,59 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CompanyController;
-
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::controller(ProductController::class)->group( function (){
-    Route::get('/products', 'get');
-    Route::get('/products/category', 'getWithCategory');
-    Route::get('/products/{id}', 'details');
-    Route::post('/products', 'store');
-    Route::patch('/products/{id}', 'update');
-    Route::delete('/products/{id}', 'delete');
-    Route::get('/products/category/{id}', 'findCategory');
+Route::controller(AuthorController::class)->group( function (){
+    Route::get('/authors', 'get');
+    Route::get('/authors/book', 'getWithBooks');
+    Route::get('/authors/{id}', 'details');
+    Route::post('/authors', 'store');
+    Route::patch('/authors/{id}', 'update');
+    Route::delete('/authors/{id}', 'delete');
+    Route::get('/authors/book/{id}', 'findBooks');
 });
 
-
-Route::controller(CategoryController::class)->group( function (){
-    Route::get('/categories', 'get');
-    Route::get('/categories/products', 'getWithProducts');
-    Route::get('/categories/{id}', 'details');
-    Route::post('/categories', 'store');
-    Route::patch('/categories/{id}', 'update');
-    Route::delete('/categories/{id}', 'delete');
-    Route::get('/categories/products/{id}', 'findProducts');
+Route::controller(BookController::class)->group( function (){
+    Route::get('/books', 'get');
+    Route::get('/books/products', 'getWithEverything');
+    Route::get('/books/{id}', 'details');
+    Route::post('/books', 'store');
+    Route::patch('/books/{id}', 'update');
+    Route::delete('/books/{id}', 'delete');
+    Route::get('/books/products/{id}', 'findReviews');
 });
 
+Route::controller(GenreController::class)->group( function (){
+    Route::get('/genres', 'get');
+    Route::get('/genres/products', 'getWithBooks');
+    Route::get('/genres/{id}', 'details');
+    Route::post('/genres', 'store');
+    Route::patch('/genres/{id}', 'update');
+    Route::delete('/genres/{id}', 'delete');
+    Route::get('/genres/products/{id}', 'findBooks');
+});
 
+Route::controller(UserController::class)->group( function (){
+    Route::get('/users', 'get');
+    Route::get('/users/{id}', 'details');
+    Route::post('/users', 'store');
+    Route::patch('/users/{id}', 'update');
+    Route::delete('/users/{id}', 'delete');
+    Route::get('/users/products/{id}', 'findReviews');
+});
 
-Route::controller(CompanyController::class)->group( function (){
-    Route::get('/companies', 'get');
-    Route::get('/companies/products', 'getWithProducts');
-    Route::get('/companies/{id}', 'details');
-    Route::post('/companies', 'store');
-    Route::patch('/companies/{id}', 'update');
-    Route::delete('/companies/{id}', 'delete');
-    Route::get('/companies/products/{id}', 'findProducts');
+Route::controller(ReviewController::class)->group( function (){
+    Route::get('/reviews', 'get');
+    Route::get('/reviews/{id}', 'details');
+    Route::post('/reviews', 'store');
+    Route::patch('/reviews/{id}', 'update');
+    Route::delete('/reviews/{id}', 'delete');
 });
 

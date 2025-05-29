@@ -2,89 +2,89 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Services\CompanyService;
-use App\Http\Requests\CompanyStoreRequest;
-use App\Http\Requests\CompanyUpdateRequest;
+use App\Services\UserService;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\ProductResource;
-use App\Http\Resources\CompanyResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 
 
-class CompanyController extends Controller
+class UserController extends Controller
 {
-    private CompanyService $companyService;
+    private UserService $userService;
 
-    public function __construct(CompanyService $companyService)
+    public function __construct(UserService $userService)
     {
-        $this->companyService = $companyService;
+        $this->userService = $userService;
     }
 
     public function get()
     {
-        $companies = $this->companyService->get();
-        return CompanyResource::collection($companies);
+        $users = $this->userService->get();
+        return UserResource::collection($users);
 
     }
 
     public function details(int $id)
     {
         try{
-            $company = $this->companyService->details($id);
+            $user = $this->userService->details($id);
         }
         catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Company not found', 404]);
+            return response()->json(['error'=>'User not found', 404]);
         }
-        return new CompanyResource($company);
+        return new UserResource($user);
     }
 
-    public function store(CompanyStoreRequest $request)
+    public function store(UserStoreRequest $request)
     {
         $data = $request->all();
-        $company = $this->companyService->store($data);
+        $user = $this->userService->store($data);
 
-        return new CompanyResource($company);
+        return new UserResource($user);
     }
-    public function update(int $id, CompanyUpdateRequest $request)
+    public function update(int $id, UserUpdateRequest $request)
     {
         $data = $request->all();
         try{
-            $company = $this->companyService->update($id,$data);
+            $user = $this->userService->update($id,$data);
         }
         catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Company not found', 404]);
+            return response()->json(['error'=>'User not found', 404]);
         }
 
-        return new CompanyResource($company);
+        return new UserResource($user);
 
     }
 
     public function delete(int $id)
     {
         try{
-            $company = $this->companyService->delete($id);
+            $user = $this->userService->delete($id);
         }
         catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Company not found', 404]);
+            return response()->json(['error'=>'User not found', 404]);
         }
-        return new CompanyResource($company);
+        return new UserResource($user);
     }
 
     public function getWithProducts()
     {
-        $companies = $this->companyService->getWithProducts();
-        return CompanyResource::collection($companies);
+        $users = $this->userService->getWithProducts();
+        return UserResource::collection($users);
 
     }
 
     public function findProducts(int $id)
     {
         try{
-            $products = $this->companyService->findProducts($id);
+            $products = $this->UserService->findProducts($id);
         }
         catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Company not found', 404]);
+            return response()->json(['error'=>'User not found', 404]);
         }
         return ProductResource::collection($products);
     }

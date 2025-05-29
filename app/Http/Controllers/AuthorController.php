@@ -3,76 +3,76 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\CategoryService;
-use App\Http\Requests\CategoryStoreRequest;
-use App\Http\Requests\CategoryUpdateRequest;
+use App\Services\AuthorService;
+use App\Http\Requests\AuthorStoreRequest;
+use App\Http\Requests\AuthorUpdateRequest;
 use App\Http\Resources\ProductResource;
-use App\Http\Resources\CategoryResource;
+use App\Http\Resources\AuthorResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
-class CategoryController extends Controller
+class AuthorController extends Controller
 {
-    private CategoryService $categoryService;
-    public function __construct(CategoryService $categoryService)
+    private AuthorService $authorService;
+    public function __construct(AuthorService $authorService)
     {
-        $this->categoryService = $categoryService;
+        $this->authorService = $authorService;
     }
 
     public function get()
     {
-        $categories = $this->categoryService->get();
-        return CategoryResource::collection($categories);
+        $authors = $this->authorService->get();
+        return AuthorResource::collection($authors);
     }
 
     public function details($id){
         try{
-            $category = $this->categoryService->details($id);
+            $author = $this->authorService->details($id);
 
         }
         catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Category not found', 404]);
+            return response()->json(['error'=>'Author not found', 404]);
         }
-        return new CategoryResource($category);
+        return new AuthorResource($author);
     }
 
-    public function store(CategoryStoreRequest $request){
+    public function store(AuthorStoreRequest $request){
         $data = $request->validated();
-        $category = $this->categoryService->store($data);
-        return new CategoryResource($category);
+        $author = $this->AuthorService->store($data);
+        return new AuthorResource($author);
     }
 
-    public function update(int $id, CategoryUpdateRequest $request){
+    public function update(int $id, AuthorUpdateRequest $request){
         $data = $request->validated();
         try{
-            $category = $this->categoryService->update($id, $data);
+            $author = $this->AuthorService->update($id, $data);
         }
         catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Category not found', 404]);
+            return response()->json(['error'=>'Author not found', 404]);
         }
-        return new CategoryResource($category);
+        return new AuthorResource($author);
     }
 
     public function delete(int $id){
         try{
-            $category = $this->categoryService->delete($id);
+            $author = $this->AuthorService->delete($id);
         }catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Category not found', 404]);
+            return response()->json(['error'=>'Author not found', 404]);
         }
-        return new CategoryResource($category);
+        return new AuthorResource($author);
     }
 
     public function getWithProducts(){
-        $categories = $this->categoryService->getWithProducts();
-        return CategoryResource::collection($categories);
+        $authors = $this->authorService->getWithProducts();
+        return AuthorResource::collection($authors);
     }
 
     public function findProducts(int $id){
         try{
-            $product = $this->categoryService->findProducts($id);
+            $product = $this->authorService->findProducts($id);
         }
         catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Category not found', 404]);
+            return response()->json(['error'=>'Author not found', 404]);
         }
         return ProductResource::collection($products);
     }
