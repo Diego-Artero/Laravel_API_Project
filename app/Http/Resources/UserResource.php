@@ -4,9 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\ReviewResource;
 
-class CompanyResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,9 @@ class CompanyResource extends JsonResource
     {
         return [
             'id'=> $this->id,
-            'social_reason'=> $this->social_reason, 
-            'fantasy_name' => $this->fantasy_name,
-            'cnpj' => $this->cnpj,
-            'products' => ProductResource::collection($this->whenLoaded('products'))
-        ];
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => $this->password,
+            'reviews'=> ReviewResource::collection($this->whenLoaded('reviews'))        ];
     }
 }

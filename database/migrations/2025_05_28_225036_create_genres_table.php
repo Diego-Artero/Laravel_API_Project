@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('products', function (Blueprint $table){
-            $table->unsignedBigInteger("company_id")->nullable();
-
-            $table->foreign("company_id")->references("id")->on("companies");
+        Schema::create('genres', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->string('name');
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('genres');
     }
 };

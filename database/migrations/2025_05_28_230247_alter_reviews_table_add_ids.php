@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('products', function (Blueprint $table){
-            $table->unsignedBigInteger("category_id")->nullable();
-
-            $table->foreign("category_id")->references("id")->on("categories");
+        Schema::table('reviews', function (Blueprint $table){
+            $table->unsignedBigInteger("user_id")->nullable();
+            $table->foreign("user_id")->references("id")->on("users");
+            $table->unsignedBigInteger("book_id")->nullable();
+            $table->foreign("book_id")->references("id")->on("books");
         });
     }
 

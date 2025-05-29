@@ -4,9 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\CategoryResource;
+use App\Http\Resources\BookResource;
 
-class ProductResource extends JsonResource
+class AuthorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,11 @@ class ProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'price'=> $this->price,
-            'category' => new CategoryResource($this->whenLoaded('category'))
+            'id'=> $this->id,
+            'name'=> $this->name, 
+            'birth_date' => $this->birth_date,
+            'biography' => $this->biography,
+            'books' => BookResource::collection($this->whenLoaded('books'))
         ];
     }
 }
