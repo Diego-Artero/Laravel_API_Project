@@ -24,22 +24,22 @@ Route::controller(AuthorController::class)->group( function (){
 
 Route::controller(BookController::class)->group( function (){
     Route::get('/books', 'get');
-    Route::get('/books/products', 'getWithEverything');
+    Route::get('/books/everything', 'getWithEverything');
     Route::get('/books/{id}', 'details');
     Route::post('/books', 'store');
     Route::patch('/books/{id}', 'update');
     Route::delete('/books/{id}', 'delete');
-    Route::get('/books/products/{id}', 'findReviews');
+    Route::get('/books/reviews/{id}', 'findReviews');
 });
 
 Route::controller(GenreController::class)->group( function (){
     Route::get('/genres', 'get');
-    Route::get('/genres/products', 'getWithBooks');
+    Route::get('/genres/books', 'getWithBooks');
     Route::get('/genres/{id}', 'details');
     Route::post('/genres', 'store');
     Route::patch('/genres/{id}', 'update');
     Route::delete('/genres/{id}', 'delete');
-    Route::get('/genres/products/{id}', 'findBooks');
+    Route::get('/genres/books/{id}', 'findBooks');
 });
 
 Route::controller(UserController::class)->group( function (){
@@ -48,7 +48,7 @@ Route::controller(UserController::class)->group( function (){
     Route::post('/users', 'store');
     Route::patch('/users/{id}', 'update');
     Route::delete('/users/{id}', 'delete');
-    Route::get('/users/products/{id}', 'findReviews');
+    Route::get('/users/reviews/{id}', 'findReviews');
 });
 
 Route::controller(ReviewController::class)->group( function (){
