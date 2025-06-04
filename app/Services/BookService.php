@@ -9,11 +9,11 @@ class BookService
 
 {
     private BookRepository $bookRepository;
-    private ProductService $productService;
+    private ReviewService $reviewService;
 
-    public function __construct(BookRepository $bookRepository, ProductService $productService){
+    public function __construct(BookRepository $bookRepository, ReviewService $reviewService){
         $this->bookRepository = $bookRepository;
-        $this->productService = $productService;
+        $this->reviewService = $reviewService;
     }
 
     public function get(){
@@ -37,20 +37,20 @@ class BookService
 
     public function delete(int $id){
         $book = $this->details($id);
-        $product = $book->products;
+        $review = $book->reviews;
         
-        foreach($products as $product){
-            $this->productService->delete($product->id);
+        foreach($reviews as $review){
+            $this->reviewService->delete($review->id);
         }
         return $this->bookRepository->delete($id);
     }
 
-    public function getWithProducts(){
-        return $this->bookRepository->getWithProducts();
+    public function getWithEverything(){
+        return $this->bookRepository->getWithEverything();
     }
 
-    public function findProducts(int $id){
-        return $this->bookRepository->findProducts($id);
+    public function findReviews(int $id){
+        return $this->bookRepository->findReviews($id);
     }
 
 }

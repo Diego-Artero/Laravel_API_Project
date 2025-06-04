@@ -3,17 +3,17 @@
 namespace App\Services;
 
 use App\Repositories\AuthorRepository;
-use App\Services\ProductServices;
+use App\Services\BookServices;
 
 class AuthorService
 
 {
     private AuthorRepository $authorRepository;
-    private ProductService $productService;
+    private BookService $bookService;
 
-    public function __construct(AuthorRepository $authorRepository, ProductService $productService){
+    public function __construct(AuthorRepository $authorRepository, BookService $bookService){
         $this->authorRepository = $authorRepository;
-        $this->productService = $productService;
+        $this->bookService = $bookService;
     }
 
     public function get(){
@@ -37,20 +37,20 @@ class AuthorService
 
     public function delete(int $id){
         $author = $this->details($id);
-        $product = $author->products;
+        $book = $author->books;
         
-        foreach($products as $product){
-            $this->productService->delete($product->id);
+        foreach($books as $book){
+            $this->bookService->delete($book->id);
         }
         return $this->authorRepository->delete($id);
     }
 
-    public function getWithProducts(){
-        return $this->authorRepository->getWithProducts();
+    public function getWithBooks(){
+        return $this->authorRepository->getWithBooks();
     }
 
-    public function findProducts(int $id){
-        return $this->authorRepository->findProducts($id);
+    public function findBooks(int $id){
+        return $this->authorRepository->findBooks($id);
     }
 
 }

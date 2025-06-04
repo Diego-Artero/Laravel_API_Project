@@ -3,17 +3,17 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
-use App\Services\ProductServices;
+use App\Services\ReviewServices;
 
 class UserService
 
 {
     private UserRepository $userRepository;
-    private ProductService $productService;
+    private ReviewService $reviewService;
 
-    public function __construct(UserRepository $userRepository, ProductService $productService){
+    public function __construct(UserRepository $userRepository, ReviewService $reviewService){
         $this->userRepository = $userRepository;
-        $this->productService = $productService;
+        $this->reviewService = $reviewService;
     }
 
     public function get(){
@@ -37,20 +37,16 @@ class UserService
 
     public function delete(int $id){
         $user = $this->details($id);
-        $product = $user->products;
+        $review = $user->reviews;
         
-        foreach($products as $product){
-            $this->productService->delete($product->id);
+        foreach($reviews as $review){
+            $this->reviewService->delete($review->id);
         }
         return $this->userRepository->delete($id);
     }
 
-    public function getWithProducts(){
-        return $this->userRepository->getWithProducts();
-    }
-
-    public function findProducts(int $id){
-        return $this->userRepository->findProducts($id);
+    public function findReviews(int $id){
+        return $this->userRepository->findReviews($id);
     }
 
 }

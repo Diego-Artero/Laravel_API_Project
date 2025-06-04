@@ -3,17 +3,17 @@
 namespace App\Services;
 
 use App\Repositories\GenreRepository;
-use App\Services\ProductServices;
+use App\Services\BookServices;
 
 class GenreService
 
 {
     private GenreRepository $genreRepository;
-    private ProductService $productService;
+    private BookService $bookService;
 
-    public function __construct(GenreRepository $genreRepository, ProductService $productService){
+    public function __construct(GenreRepository $genreRepository, BookService $bookService){
         $this->genreRepository = $genreRepository;
-        $this->productService = $productService;
+        $this->bookService = $bookService;
     }
 
     public function get(){
@@ -37,20 +37,20 @@ class GenreService
 
     public function delete(int $id){
         $genre = $this->details($id);
-        $product = $genre->products;
+        $book = $genre->books;
         
-        foreach($products as $product){
-            $this->productService->delete($product->id);
+        foreach($books as $book){
+            $this->bookService->delete($book->id);
         }
         return $this->genreRepository->delete($id);
     }
 
-    public function getWithProducts(){
-        return $this->genreRepository->getWithProducts();
+    public function getWithBooks(){
+        return $this->genreRepository->getWithBooks();
     }
 
-    public function findProducts(int $id){
-        return $this->genreRepository->findProducts($id);
+    public function findBooks(int $id){
+        return $this->genreRepository->findBooks($id);
     }
 
 }
