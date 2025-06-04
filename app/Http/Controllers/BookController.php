@@ -58,17 +58,17 @@ class BookController extends Controller
         return new BookResource($Book);
     }
 
-    public function getWithCategory(){
-        $Books = $this->bookService->getWithCategory();
+    public function getWithEverything(){
+        $Books = $this->bookService->getWithEverything();
         return BookResource::collection($Books);
     }
 
-    public function findCategory(int $id){
+    public function findReviews(int $id){
         try{
-            $category = $this->bookService->findCategory($id);
+            $review = $this->bookService->findReviews($id);
         }catch(ModelNotFoundException $e){
             return response()->json(['error'=>'Book not found'],404);
         }
-        return response()->json($category);
+        return response()->json($review);
     }
 }

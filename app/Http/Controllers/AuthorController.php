@@ -62,14 +62,14 @@ class AuthorController extends Controller
         return new AuthorResource($author);
     }
 
-    public function getWithProducts(){
-        $authors = $this->authorService->getWithProducts();
+    public function getWithBooks(){
+        $authors = $this->authorService->getWithBooks();
         return AuthorResource::collection($authors);
     }
 
-    public function findProducts(int $id){
+    public function findBooks(int $id){
         try{
-            $product = $this->authorService->findProducts($id);
+            $product = $this->authorService->findBooks($id);
         }
         catch(ModelNotFoundException $e){
             return response()->json(['error'=>'Author not found', 404]);

@@ -71,21 +71,6 @@ class ReviewController extends Controller
         return new ReviewResource($review);
     }
 
-    public function getWithProducts()
-    {
-        $reviews = $this->reviewService->getWithProducts();
-        return ReviewResource::collection($reviews);
-
-    }
-
-    public function findProducts(int $id)
-    {
-        try{
-            $products = $this->reviewService->findProducts($id);
-        }
-        catch(ModelNotFoundException $e){
-            return response()->json(['error'=>'Review not found', 404]);
-        }
-        return ProductResource::collection($products);
-    }
+   
+    
 }

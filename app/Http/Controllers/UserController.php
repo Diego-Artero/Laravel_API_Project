@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\ReviewResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -70,22 +70,14 @@ class UserController extends Controller
         }
         return new UserResource($user);
     }
-
-    public function getWithProducts()
-    {
-        $users = $this->userService->getWithProducts();
-        return UserResource::collection($users);
-
-    }
-
-    public function findProducts(int $id)
+    public function findReviews(int $id)
     {
         try{
-            $products = $this->UserService->findProducts($id);
+            $reviews = $this->UserService->findReviews($id);
         }
         catch(ModelNotFoundException $e){
             return response()->json(['error'=>'User not found', 404]);
         }
-        return ProductResource::collection($products);
+        return ReviewResource::collection($reviews);
     }
 }
