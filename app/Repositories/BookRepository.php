@@ -30,13 +30,13 @@ class BookRepository
         return $book;
     }
     
-    public function getWithProducts(){
-        $books = Book::with('products')->get();
+    public function getWithEverything(){
+        $books = Book::with(['author', 'genre', 'reviews'])->get();
         return $books;
     }
 
-    public function findProducts(int $id){
+    public function findReviews(int $id){
         $book = $this->details($id);
-        return $book->products;
+        return $book->reviews;
     }
 }

@@ -29,14 +29,9 @@ class UserRepository
         $user->delete();
         return $user;
     }
-    
-    public function getWithCategory(){
-        $users = User::with('category')->get();
-        return $users;
-    }
 
-    public function findCategory(int $id){
+    public function findReviews(int $id){
         $user = $this->details($id);
-        return $user->category;
+        return $user->review;
     }
 }

@@ -29,14 +29,4 @@ class ReviewRepository
         $review->delete();
         return $review;
     }
-    
-    public function getWithProducts(){
-        $reviews = Review::with('products')->get();
-        return $reviews;
-    }
-
-    public function findProducts(int $id){
-        $review = $this->details($id);
-        return $review->products;
-    }
 }

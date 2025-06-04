@@ -30,13 +30,13 @@ class GenreRepository
         return $genre;
     }
     
-    public function getWithProducts(){
-        $genres = Genre::with('products')->get();
+    public function getWithBooks(){
+        $genres = Genre::with('books')->get();
         return $genres;
     }
 
-    public function findProducts(int $id){
+    public function findBooks(int $id){
         $genre = $this->details($id);
-        return $genre->products;
+        return $genre->books;
     }
 }

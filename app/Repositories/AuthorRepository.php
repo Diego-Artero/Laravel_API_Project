@@ -30,13 +30,13 @@ class AuthorRepository
         return $author;
     }
     
-    public function getWithProducts(){
-        $authors = Author::with('products')->get();
+    public function getWithBooks(){
+        $authors = Author::with('books')->get();
         return $authors;
     }
 
-    public function findProducts(int $id){
+    public function findBooks(int $id){
         $author = $this->details($id);
-        return $author->products;
+        return $author->books;
     }
 }
