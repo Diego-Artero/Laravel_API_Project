@@ -37,7 +37,7 @@ class GenreService
 
     public function delete(int $id){
         $genre = $this->details($id);
-        $book = $genre->books;
+        $books = $genre->books;
         
         foreach($books as $book){
             $this->bookService->delete($book->id);

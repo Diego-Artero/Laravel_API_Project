@@ -37,7 +37,7 @@ class UserService
 
     public function delete(int $id){
         $user = $this->details($id);
-        $review = $user->reviews;
+        $reviews = $user->reviews;
         
         foreach($reviews as $review){
             $this->reviewService->delete($review->id);

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\BookService;
-use App\Http\Requests\BookStoreRequest;
-use App\Http\Requests\BookUpdateRequest;
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\BookResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -33,13 +33,13 @@ class BookController extends Controller
         return new BookResource($Book);
     }
 
-    public function store(BookStoreRequest $request){
+    public function store(StoreBookRequest $request){
         $data = $request->validated();
         $Book = $this->bookService->store($data);
         return new BookResource($Book);
     }
 
-    public function update(int $id, BookUpdateRequest $request){
+    public function update(int $id, UpdateBookRequest $request){
         $data = $request->validated();
         try{
             $Book = $this->bookService->update($id, $data);

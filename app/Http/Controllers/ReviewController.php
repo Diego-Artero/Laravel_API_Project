@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ReviewService;
-use App\Http\Requests\ReviewStoreRequest;
-use App\Http\Requests\ReviewUpdateRequest;
+use App\Http\Requests\StoreReviewRequest;
+use App\Http\Requests\UpdateReviewRequest;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\ReviewResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -39,14 +39,14 @@ class ReviewController extends Controller
         return new ReviewResource($review);
     }
 
-    public function store(ReviewStoreRequest $request)
+    public function store(StoreReviewRequest $request)
     {
         $data = $request->all();
-        $review = $this->ReviewService->store($data);
+        $review = $this->reviewService->store($data);
 
         return new ReviewResource($review);
     }
-    public function update(int $id, ReviewUpdateRequest $request)
+    public function update(int $id, UpdateReviewRequest $request)
     {
         $data = $request->all();
         try{

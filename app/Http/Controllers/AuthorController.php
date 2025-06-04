@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\AuthorService;
-use App\Http\Requests\AuthorStoreRequest;
-use App\Http\Requests\AuthorUpdateRequest;
+use App\Http\Requests\StoreAuthorRequest;
+use App\Http\Requests\UpdateAuthorRequest;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\AuthorResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -36,16 +36,16 @@ class AuthorController extends Controller
         return new AuthorResource($author);
     }
 
-    public function store(AuthorStoreRequest $request){
+    public function store(StoreAuthorRequest $request){
         $data = $request->validated();
-        $author = $this->AuthorService->store($data);
+        $author = $this->authorService->store($data);
         return new AuthorResource($author);
     }
 
-    public function update(int $id, AuthorUpdateRequest $request){
+    public function update(int $id, UpdateAuthorRequest $request){
         $data = $request->validated();
         try{
-            $author = $this->AuthorService->update($id, $data);
+            $author = $this->authorService->update($id, $data);
         }
         catch(ModelNotFoundException $e){
             return response()->json(['error'=>'Author not found', 404]);
@@ -55,7 +55,7 @@ class AuthorController extends Controller
 
     public function delete(int $id){
         try{
-            $author = $this->AuthorService->delete($id);
+            $author = $this->authorService->delete($id);
         }catch(ModelNotFoundException $e){
             return response()->json(['error'=>'Author not found', 404]);
         }
@@ -74,6 +74,6 @@ class AuthorController extends Controller
         catch(ModelNotFoundException $e){
             return response()->json(['error'=>'Author not found', 404]);
         }
-        return ProductResource::collection($products);
+        return ProductResource::collection($product);
     }
 }

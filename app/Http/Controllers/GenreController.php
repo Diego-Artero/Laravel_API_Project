@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\GenreService;
-use App\Http\Requests\GenreStoreRequest;
-use App\Http\Requests\GenreUpdateRequest;
+use App\Http\Requests\StoreGenreRequest;
+use App\Http\Requests\UpdateGenreRequest;
 use App\Http\Resources\BookResource;
 use App\Http\Resources\GenreResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -39,18 +39,18 @@ class GenreController extends Controller
         return new GenreResource($genre);
     }
 
-    public function store(GenreStoreRequest $request)
+    public function store(StoreGenreRequest $request)
     {
         $data = $request->all();
-        $genre = $this->GenreService->store($data);
+        $genre = $this->genreService->store($data);
 
         return new GenreResource($genre);
     }
-    public function update(int $id, GenreUpdateRequest $request)
+    public function update(int $id, UpdateGenreRequest $request)
     {
         $data = $request->all();
         try{
-            $genre = $this->GenreService->update($id,$data);
+            $genre = $this->genreService->update($id,$data);
         }
         catch(ModelNotFoundException $e){
             return response()->json(['error'=>'Genre not found', 404]);
@@ -63,7 +63,7 @@ class GenreController extends Controller
     public function delete(int $id)
     {
         try{
-            $genre = $this->GenreService->delete($id);
+            $genre = $this->genreService->delete($id);
         }
         catch(ModelNotFoundException $e){
             return response()->json(['error'=>'Genre not found', 404]);

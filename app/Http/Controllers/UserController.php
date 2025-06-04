@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\UserService;
-use App\Http\Requests\UserStoreRequest;
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\ReviewResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -39,14 +39,14 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function store(UserStoreRequest $request)
+    public function store(StoreUserRequest $request)
     {
         $data = $request->all();
         $user = $this->userService->store($data);
 
         return new UserResource($user);
     }
-    public function update(int $id, UserUpdateRequest $request)
+    public function update(int $id, UpdateUserRequest $request)
     {
         $data = $request->all();
         try{
@@ -73,7 +73,7 @@ class UserController extends Controller
     public function findReviews(int $id)
     {
         try{
-            $reviews = $this->UserService->findReviews($id);
+            $reviews = $this->userService->findReviews($id);
         }
         catch(ModelNotFoundException $e){
             return response()->json(['error'=>'User not found', 404]);

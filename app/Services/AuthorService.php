@@ -37,7 +37,7 @@ class AuthorService
 
     public function delete(int $id){
         $author = $this->details($id);
-        $book = $author->books;
+        $books = $author->books;
         
         foreach($books as $book){
             $this->bookService->delete($book->id);

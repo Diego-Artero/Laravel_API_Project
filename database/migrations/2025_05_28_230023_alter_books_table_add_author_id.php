@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::table('books', function (Blueprint $table){
             $table->unsignedBigInteger("author_id")->nullable();
-            $table->foreign("author_id")->references("id")->on("authors");
+            $table->foreign("author_id")->references("id")->on("authors")->onDelete('cascade');
             $table->unsignedBigInteger("genre_id")->nullable();
-            $table->foreign("genre_id")->references("id")->on("genres");
+            $table->foreign("genre_id")->references("id")->on("genres")->nullOnDelete();
         });
     }
 

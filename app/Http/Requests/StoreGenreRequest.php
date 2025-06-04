@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompanyUpdateRequest extends FormRequest
+class StoreGenreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,12 +21,8 @@ class CompanyUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-    
         return [
-            'social_reason'=> 'sometimes|required|string|max:255', 
-            'fantasy_name'=> 'sometimes|required|string|max:255',
-            'cnpj' => 'sometimes|required|string|size:14'
+            'name' => 'required|string|max:255|unique:genres,name',
         ];
-    
     }
 }
