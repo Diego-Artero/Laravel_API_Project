@@ -12,10 +12,10 @@ class Book extends Model
     protected $table = 'books';
     protected $fillable = ['title','synopsis', 'genre_id','author_id'];
 
-    public function genres(){
+    public function genre(){
         return $this->belongsTo(Genre::class,'genre_id','id');
     }
-    public function review(){
+    public function reviews(){
         return $this->hasMany(Review::class,'book_id', 'id');
     }
     public function author(){
